@@ -2436,7 +2436,7 @@
         // 全域變數
         const CONFIG = {
             SPREADSHEET_ID: '1miCf_ZTVyzmA1MNbbZM3uUdZjluk99gZUH5w2q_XWs8',
-            GAS_URL: 'https://script.google.com/macros/s/AKfycbxZqVaOEc8IhOXyU7zmIFYC17euGjxSyZXbAko1BKs-peFqk72oFz8JzwPLrSqLbu_b/exec',
+            GAS_URL: 'https://script.google.com/macros/s/AKfycbz24EgwaED7n89adUMG3wLBg3q2JyWwHg3nNlfWb7lbOD5w-slu3U0zMy_OE59sMYo1jw/exec',
             USE_MOCK_DATA: false,
             MAPS_API_KEY: 'AIzaSyDtP8oDCXfr0CPLyVv_WrAqmk2V9QgteLI',
             WEATHER_API_KEY: 'a4806bc2577c0c227f9acd8bccb566a5',
@@ -3657,21 +3657,41 @@ convertToRouteCards(data) {
             cardClass += colorIndex === 0 ? ' morning' : colorIndex === 1 ? ' afternoon' : ' evening';
         }
         
-        // 計算基本資訊
-        const totalPallets = routeData.reduce((sum, item) => {
-            const pallets = parseInt(item['商品棧板']) || 0;
-            return sum + pallets;
-        }, 0);
-        
-        const pickupCount = routeData.filter(item => 
-            item['配送狀態'] && item['配送狀態'].includes('取貨')
-        ).length;
-        
-        const deliveryCount = routeData.length - pickupCount;
-        
-        // 起點和迄點
-        const startPoint = routeData[0]?.['起點迄點']?.split('→')[0]?.trim() || '待確認';
-        const endPoint = routeData[routeData.length - 1]?.['起點迄點']?.split('→')[1]?.trim() || '待確認';
+       // 計算基本資訊
+const pickupCount = routeData.reduce((sum, item) => {
+    // 檢查起點/迄點欄位（G欄位）是否包含『取貨』
+    const routeInfo = item['起點/迄點'] || '';
+    if (routeInfo.includes('取貨')) {
+        // 如果包含『取貨』，則累加該筆資料的板位欄位數字
+        const palletPosition = item['板位'] || '';
+        const numbers = palletPosition.toString().match(/\d+/g);
+        const palletSum = numbers ? numbers.reduce((acc, num) => acc + parseInt(num), 0) : 0;
+        return sum + palletSum;
+    }
+    return sum;
+}, 0);
+
+const deliveryCount = routeData.reduce((sum, item) => {
+    // 檢查起點/迄點欄位（G欄位）是否包含『配送』
+    const routeInfo = item['起點/迄點'] || '';
+    if (routeInfo.includes('配送')) {
+        // 如果包含『配送』，則累加該筆資料的板位欄位數字
+        const palletPosition = item['板位'] || '';
+        const numbers = palletPosition.toString().match(/\d+/g);
+        const palletSum = numbers ? numbers.reduce((acc, num) => acc + parseInt(num), 0) : 0;
+        return sum + palletSum;
+    }
+    return sum;
+}, 0);
+
+// 板數量 = 取貨數量 + 配送數量
+const totalPallets = pickupCount + deliveryCount;
+
+// 起點和迄點
+const startPoint = routeData[0]?.['起點/迄點']?.split('→')[0]?.trim() || '待確認';
+const endPoint = routeData[routeData.length - 1]?.['起點/迄點']?.split('→')[1]?.trim() || '待確認';
+
+
         
         cardsHtml += `
             <div class="${cardClass}" style="animation-delay: ${index * 0.1}s">
@@ -3716,12 +3736,15 @@ generateRouteDetails(routeData) {
     let detailsHtml = '';
     
     routeData.forEach((item, index) => {
-        const pallets = item['商品棧板'] || '0';
-        const status = item['配送狀態'] || '待確認';
+        const pallets = item['板位'] || '0';
+        const status = item['起點/迄點'] || '待確認';
         const customer = item['客戶簡稱'] || '未知客戶';
         const address = item['地址'] || '地址待確認';
         const product = item['商品簡稱'] || '商品資訊待確認';
         const notes = item['配送備註'] || '';
+        const vehicle = item['配送車輛'] || '車輛待確認';  // 新增配送車輛資訊
+
+
         
         // 狀態顏色
         let statusColor = '#64748b';
@@ -3733,7 +3756,7 @@ generateRouteDetails(routeData) {
             statusColor = '#10b981';
         }
         
-        detailsHtml += `
+       detailsHtml += `
             <div class="route-detail-item">
                 <div style="flex: 1;">
                     <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.25rem;">
@@ -3748,9 +3771,12 @@ generateRouteDetails(routeData) {
                     <div style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.25rem;">
                         <i class="fas fa-box" style="width: 12px;"></i> ${product}
                     </div>
-                    ${notes ? `<div style="font-size: 0.75rem; color: #f59e0b;">
+                    ${notes ? `<div style="font-size: 0.75rem; color: #f59e0b; margin-bottom: 0.25rem;">
                         <i class="fas fa-sticky-note" style="width: 12px;"></i> ${notes}
                     </div>` : ''}
+                    <div style="font-size: 0.75rem; color: #64748b;">
+                        <i class="fas fa-truck" style="width: 12px;"></i> ${vehicle}
+                    </div>
                 </div>
                 <div style="text-align: right; margin-left: 1rem;">
                     <div style="font-size: 1.25rem; font-weight: 700; color: #374151;">
@@ -3763,6 +3789,7 @@ generateRouteDetails(routeData) {
             </div>
         `;
     });
+
     
     return detailsHtml;
 }
