@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>昶青物流-派車GAI數據管理系統</title>
+    <title>昶青智慧冷鏈物流-派車GAI數據管理系統</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
@@ -1237,7 +1237,7 @@
             border-radius: 4px;
         }
 
-        /* GAI預排路線區塊 */
+        /* 【GAI智慧預排】當日路線區塊 */
         #gai-route-section {
             margin-top: 2rem;
             border: 2px solid transparent;
@@ -1524,14 +1524,42 @@
             }
         }
 
-        /* 路線卡片容器 */
+/* 路線卡片容器 */
 .route-cards-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(5, 1fr); /* 固定5列 */
+  gap: 1.2rem; /* 稍微縮小間距以適應更多卡片 */
   margin-top: 2rem;
   padding: 1rem;
 }
+
+/* 響應式調整 - 在較小螢幕上保持適當的顯示 */
+@media (max-width: 1600px) {
+  .route-cards-container {
+    grid-template-columns: repeat(4, 1fr); /* 中等螢幕顯示4列 */
+  }
+}
+
+@media (max-width: 1200px) {
+  .route-cards-container {
+    grid-template-columns: repeat(3, 1fr); /* 較小螢幕顯示3列 */
+  }
+}
+
+@media (max-width: 900px) {
+  .route-cards-container {
+    grid-template-columns: repeat(2, 1fr); /* 平板顯示2列 */
+  }
+}
+
+@media (max-width: 600px) {
+  .route-cards-container {
+    grid-template-columns: 1fr; /* 手機顯示1列 */
+    gap: 1rem;
+    padding: 0.5rem;
+  }
+}
+
 
 /* 路線卡片基本樣式 */
 .route-card {
@@ -1543,6 +1571,7 @@
   overflow: hidden;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
+    min-width: 220px; /* 設定最小寬度確保內容可讀性 */
 }
 
 .route-card:hover {
@@ -1752,7 +1781,7 @@
         <div class="login-card">
             <div class="login-header">
                                <i class="fas fa-truck"></i>
-                <h1>昶青物流</h1>
+                <h1>昶青智慧冷鏈物流</h1>
                 <p>派車GAI數據管理系統</p>
             </div>
             <form class="login-form" id="loginForm">
@@ -1778,7 +1807,7 @@
         <nav class="navbar">
             <div class="nav-brand">
                 <i class="fas fa-truck"></i>
-                <h1>昶青物流-派車GAI數據管理系統</h1>
+                <h1>昶青智慧冷鏈物流-派車GAI數據管理系統</h1>
             </div>
             <div class="nav-user">
                 <div class="user-info">
@@ -1798,13 +1827,13 @@
                     <i class="fas fa-tachometer-alt"></i>
                     <span>主控台</span>
                 </li>
+                <li class="menu-item" data-page="route-optimization" data-permission="route-optimization">
+                    <i class="fas fa-brain"></i>
+                    <span>GAI-精準智慧物流路徑規劃</span>
+                </li>
                 <li class="menu-item" data-page="route-management" data-permission="route-management">
                     <i class="fas fa-route"></i>
                     <span>路線管理</span>
-                </li>
-                <li class="menu-item" data-page="route-optimization" data-permission="route-optimization">
-                    <i class="fas fa-brain"></i>
-                    <span>AI路線優化</span>
                 </li>
                 <li class="menu-item" data-page="seasonal-routes" data-permission="seasonal-routes">
                     <i class="fas fa-calendar-alt"></i>
@@ -2138,16 +2167,16 @@
                 </div>
             </div>
 
-            <!-- AI路線優化頁面 -->
+            <!-- GAI-精準智慧物流路徑規劃頁面 -->
             <div id="route-optimization" class="page">
                 <div class="page-header">
-                    <h2><i class="fas fa-brain"></i> AI路線優化</h2>
+                    <h2><i class="fas fa-brain"></i> GAI-精準智慧物流路徑規劃</h2>
                 </div>
                                 <!-- 派車收送點清單區塊 -->
                 <div id="deliveryPointsPanel" class="card" style="margin-bottom: 1.5rem;">
                   <div class="card-header" style="display: flex; align-items: center; justify-content: space-between;">
                     <div>
-                      <h3 style="margin: 0;">派車收送點清單</h3>
+                      <h2 style="margin: 0;">1.【客戶下單】收送點資料</h2>
                     </div>
                     <div>
                       <input type="date" id="deliveryDatePicker" class="form-input" style="width: auto;">
@@ -2165,9 +2194,9 @@
                     </button>
                   </div>
                 </div>
-                                <!-- GAI預排路線區塊 -->
+                                <!-- 【GAI智慧預排】當日路線區塊 -->
                 <div id="gai-route-section" style="margin-top:2em; border:1px solid #e2e8f0; border-radius:8px; padding:1em; background:#fff;">
-                  <h3 style="margin-bottom:1em;">GAI預排路線</h3>
+                  <h3 style="margin-bottom:1em;">2.【GAI智慧預排】當日路線</h3>
                   <button id="ai-preplan-btn" style="background:#2563eb; color:#fff; border:none; padding:0.5em 1.5em; border-radius:4px; cursor:pointer;">
                     <i class="fa-solid fa-robot"></i> AI預排
                   </button>
@@ -2436,14 +2465,14 @@
         // 全域變數
         const CONFIG = {
             SPREADSHEET_ID: '1miCf_ZTVyzmA1MNbbZM3uUdZjluk99gZUH5w2q_XWs8',
-            GAS_URL: 'https://script.google.com/macros/s/AKfycbz24EgwaED7n89adUMG3wLBg3q2JyWwHg3nNlfWb7lbOD5w-slu3U0zMy_OE59sMYo1jw/exec',
+            GAS_URL: 'https://script.google.com/macros/s/AKfycbxiCbvs-KlugO4qiqYiK9JJ_5AoGwG_xlYXWo6t0e2q0rirgshVJ2MfgwCf5kzm1T4/exec',
             USE_MOCK_DATA: false,
             MAPS_API_KEY: 'AIzaSyDtP8oDCXfr0CPLyVv_WrAqmk2V9QgteLI',
             WEATHER_API_KEY: 'a4806bc2577c0c227f9acd8bccb566a5',
             SHEETS: {
                 DASHBOARD: '主控台',
                 ROUTES: '路線管理',
-                OPTIMIZATION: 'AI路線優化', 
+                OPTIMIZATION: 'GAI-精準智慧物流路徑規劃', 
                 SEASONAL: '季節性路線',
                 CARGO_VEHICLE: '載運管理',
                 REALTIME: '即時監控',
@@ -3112,6 +3141,41 @@ document.getElementById('ai-preplan-btn')?.addEventListener('click', async () =>
 document.getElementById('fetchDeliveryPointsBtn')?.addEventListener('click', async () => {
     await this.fetchDeliveryPoints();
 });
+                // ⭐ 在這裡添加調試功能 ⭐
+document.getElementById('debugRouteData')?.addEventListener('click', async () => {
+    try {
+        console.log('=== 開始調試路線資料 ===');
+        
+        // 第一步：測試獲取原始資料
+        const rawData = await this.apiCall('getRouteTableFromExternalSheet', {
+            targetSpreadsheetId: '109Qjbwi08bvficzUHx0hkON7UgL08i5zXQ6BPI4KwIE'
+        });
+        
+        console.log('原始資料:', rawData);
+        console.log('原始資料類型:', typeof rawData);
+        console.log('是否為陣列:', Array.isArray(rawData));
+        
+        if (Array.isArray(rawData) && rawData.length > 0) {
+            console.log('第一筆資料:', rawData[0]);
+            console.log('第一筆資料的鍵:', Object.keys(rawData[0]));
+            
+            // 第二步：測試處理地址資料
+            const processedData = await this.apiCall('processRouteAddresses', {
+                routeData: rawData
+            });
+            
+            console.log('處理後資料:', processedData);
+            console.log('處理後資料類型:', typeof processedData);
+            console.log('處理後是否為陣列:', Array.isArray(processedData));
+        }
+        
+        this.showNotification('調試資訊已輸出到控制台', 'info');
+        
+    } catch (error) {
+        console.error('調試失敗:', error);
+        this.showNotification(`調試失敗: ${error.message}`, 'error');
+    }
+});
 
                 document.getElementById('startOptimization')?.addEventListener('click', () => {
                     this.startRouteOptimization();
@@ -3285,7 +3349,7 @@ async fetchDeliveryPoints() {
         // 顯示進度訊息
         const loadingSpinner = document.querySelector('.loading-spinner p');
         if (loadingSpinner) {
-            loadingSpinner.textContent = '正在同步日期到外部工作表...';
+            loadingSpinner.textContent = '正在同步提取日期對應資料...';
         }
         
         // 1. 寫入指定日期到外部 Google Sheet
@@ -3295,7 +3359,7 @@ async fetchDeliveryPoints() {
         });
         
         if (loadingSpinner) {
-            loadingSpinner.textContent = '正在執行自動完成程序...';
+            loadingSpinner.textContent = '正在執行【路徑導航設計程序】...';
         }
         
         // 2. 自動執行外部 GAS 的 autoCompleteProcess 程序
@@ -3508,7 +3572,7 @@ async executeExternalAutoCompleteProcess() {
                 action: 'autoCompleteProcess',
                 data: {
                     timestamp: new Date().toISOString(),
-                    source: '昶青物流派車系統'
+                    source: '昶青智慧冷鏈物流派車系統'
                 }
             }),
             mode: 'no-cors', // 使用 no-cors 模式
@@ -3541,7 +3605,7 @@ async executeExternalAutoCompleteProcess() {
 // 處理AI預排
 async handleAIPreplan() {
     const resultDiv = document.getElementById('gai-route-result');
-    resultDiv.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 正在載入當日各路線表...';
+    resultDiv.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 正在佈建AI當日各路線預排表...';
 
     try {
         console.log('開始獲取當日各路線表...');
@@ -4052,35 +4116,221 @@ refreshDispatchTable() {
                 }
             }
 
-            // 在地圖上載入路線
-            async loadRoutesOnMap() {
-                try {
-                    const routes = await this.getRoutes();
-                    const routeMapList = document.getElementById('routeMapList');
-                    routeMapList.innerHTML = '';
+// 修正地圖載入路線功能
+async loadRoutesOnMap() {
+    try {
+        console.log('開始載入路線到地圖...');
+        
+        const routeMapList = document.getElementById('routeMapList');
+        routeMapList.innerHTML = '<div style="padding: 1rem; text-align: center;">載入中...</div>';
+        
+        this.mapsIntegration.clearMarkers();
+        
+        // 獲取外部路線資料
+        const externalData = await this.getExternalRouteData();
+        
+        console.log('獲取到的外部資料:', externalData);
+        
+        if (!externalData.processedRoutes || externalData.processedRoutes.length === 0) {
+            routeMapList.innerHTML = `
+                <div style="padding: 2rem; text-align: center; color: #64748b;">
+                    <i class="fas fa-info-circle" style="font-size: 2rem; margin-bottom: 1rem;"></i>
+                    <p>暫無路線資料</p>
+                    <p><small>請檢查外部工作表是否有資料</small></p>
+                </div>
+            `;
+            return;
+        }
+        
+        routeMapList.innerHTML = '';
+        
+        // 處理每條路線
+        externalData.processedRoutes.forEach((route, index) => {
+            console.log(`處理路線 ${index + 1}: ${route.routeName}`);
+            
+            // 添加路線到側邊欄列表
+            const routeItem = document.createElement('div');
+            routeItem.className = 'route-info-card';
+            routeItem.style.cssText = `
+                background: white;
+                border: 1px solid #e2e8f0;
+                border-radius: 8px;
+                padding: 1rem;
+                margin-bottom: 1rem;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            `;
+            
+            routeItem.innerHTML = `
+                <h5 style="margin: 0 0 0.5rem 0; color: #1e293b;">${route.routeName}</h5>
+                <p style="margin: 0 0 1rem 0; color: #64748b; font-size: 0.875rem;">
+                    <i class="fas fa-map-marker-alt"></i> ${route.addressCount} 個地址點 | 
+                    <i class="fas fa-route"></i> ${route.totalKm} km
+                </p>
+                <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                    <button class="btn btn-sm btn-primary" onclick="app.showExternalRouteOnMap('${route.routeName}')">
+                        <i class="fas fa-eye"></i> 顯示路線
+                    </button>
+                    <button class="btn btn-sm btn-info" onclick="app.showRouteAddresses('${route.routeName}')">
+                        <i class="fas fa-list"></i> 地址清單
+                    </button>
+                </div>
+            `;
+            
+            routeMapList.appendChild(routeItem);
+            
+            // 為每個地址創建地圖標記
+            this.createRouteMarkersFromAddresses(route, index);
+        });
+        
+        this.showNotification(`已載入 ${externalData.processedRoutes.length} 條路線`, 'success');
+        
+    } catch (error) {
+        console.error('載入外部路線到地圖失敗:', error);
+        
+        const routeMapList = document.getElementById('routeMapList');
+        routeMapList.innerHTML = `
+            <div style="padding: 2rem; text-align: center; color: #dc2626;">
+                <i class="fas fa-exclamation-triangle" style="font-size: 2rem; margin-bottom: 1rem;"></i>
+                <p>載入路線失敗</p>
+                <p><small>${error.message}</small></p>
+                <button class="btn btn-sm btn-secondary" onclick="app.loadRoutesOnMap()" style="margin-top: 1rem;">
+                    <i class="fas fa-sync-alt"></i> 重新載入
+                </button>
+            </div>
+        `;
+        
+        this.showNotification('載入外部路線失敗', 'error');
+    }
+}
 
-                    this.mapsIntegration.clearMarkers();
 
-                    routes.forEach((route, index) => {
-                        // 添加路線到側邊欄列表
-                        const routeItem = document.createElement('div');
-                        routeItem.className = 'route-info-card';
-                        routeItem.innerHTML = `
-                            <h5>${route.name}</h5>
-                            <p><small>${route.startPoint} → ${route.endPoint}</small></p>
-                            <button class="btn btn-sm btn-primary" onclick="app.showRouteOnMap('${route.id}')">
-                                <i class="fas fa-eye"></i> 顯示
-                            </button>
-                        `;
-                        routeMapList.appendChild(routeItem);
-
-                        // 嘗試在地圖上標記起點和終點
-                        this.geocodeAndMarkRoute(route, index);
-                    });
-                } catch (error) {
-                    console.error('載入路線到地圖失敗:', error);
-                }
+// 新增：從地址創建地圖標記
+async createRouteMarkersFromAddresses(route, routeIndex) {
+    try {
+        const colors = ['red', 'blue', 'green', 'yellow', 'purple'];
+        const markerColor = colors[routeIndex % colors.length];
+        
+        for (let i = 0; i < route.addresses.length; i++) {
+            const addressData = route.addresses[i];
+            
+            try {
+                // 地理編碼地址
+                const location = await this.mapsIntegration.geocodeAddress(addressData.address);
+                
+                // 創建標記
+                const marker = this.mapsIntegration.addMarker(
+                    location.location,
+                    `${route.routeName} - 地址${addressData.order}: ${addressData.address}`,
+                    {
+                        url: `https://maps.google.com/mapfiles/ms/icons/${markerColor}-dot.png`,
+                        scaledSize: new google.maps.Size(32, 32)
+                    }
+                );
+                
+                // 添加資訊視窗
+                const infoWindow = new google.maps.InfoWindow({
+                    content: `
+                        <div style="max-width: 200px;">
+                            <h6>${route.routeName}</h6>
+                            <p><strong>地址${addressData.order}:</strong><br>
+                            ${addressData.address}</p>
+                            <p><small>總距離: ${route.totalKm} km</small></p>
+                        </div>
+                    `
+                });
+                
+                marker.addListener('click', () => {
+                    infoWindow.open(this.mapsIntegration.map, marker);
+                });
+                
+            } catch (geocodeError) {
+                console.warn(`地址地理編碼失敗: ${addressData.address}`, geocodeError);
             }
+        }
+        
+    } catch (error) {
+        console.error('創建路線標記失敗:', error);
+    }
+}
+
+// 新增：顯示特定外部路線
+async showExternalRouteOnMap(routeName) {
+    try {
+        const externalData = await this.getExternalRouteData();
+        const route = externalData.processedRoutes.find(r => r.routeName === routeName);
+        
+        if (!route) {
+            this.showNotification('找不到指定路線', 'error');
+            return;
+        }
+
+        // 清除現有標記
+        this.mapsIntegration.clearMarkers();
+        
+        // 收集所有有效地址
+        const validAddresses = [];
+        for (const addressData of route.addresses) {
+            try {
+                const location = await this.mapsIntegration.geocodeAddress(addressData.address);
+                validAddresses.push(addressData.address);
+            } catch (error) {
+                console.warn(`跳過無效地址: ${addressData.address}`);
+            }
+        }
+        
+        if (validAddresses.length < 2) {
+            this.showNotification('路線地址不足，無法計算路線', 'warning');
+            return;
+        }
+        
+        // 計算並顯示路線
+        const origin = validAddresses[0];
+        const destination = validAddresses[validAddresses.length - 1];
+        const waypoints = validAddresses.slice(1, -1);
+        
+        await this.mapsIntegration.calculateRoute(origin, destination, waypoints);
+        
+        this.showNotification(`已顯示路線: ${routeName}`, 'success');
+        
+    } catch (error) {
+        console.error('顯示外部路線失敗:', error);
+        this.showNotification('顯示路線失敗', 'error');
+    }
+}
+
+// 新增：顯示路線地址清單
+async showRouteAddresses(routeName) {
+    try {
+        const externalData = await this.getExternalRouteData();
+        const route = externalData.processedRoutes.find(r => r.routeName === routeName);
+        
+        if (!route) {
+            this.showNotification('找不到指定路線', 'error');
+            return;
+        }
+        
+        const addressList = route.addresses.map((addr, index) => 
+            `<li><strong>地址${addr.order}:</strong> ${addr.address}</li>`
+        ).join('');
+        
+        this.showModal(`路線地址清單 - ${routeName}`, `
+            <div class="route-address-list">
+                <p><strong>總公里數:</strong> ${route.totalKm} km</p>
+                <p><strong>地址數量:</strong> ${route.addressCount} 個</p>
+                <hr>
+                <h5>地址清單:</h5>
+                <ol style="max-height: 300px; overflow-y: auto;">
+                    ${addressList}
+                </ol>
+            </div>
+        `);
+        
+    } catch (error) {
+        console.error('顯示路線地址失敗:', error);
+        this.showNotification('顯示地址清單失敗', 'error');
+    }
+}
+
 
             // 地理編碼並標記路線
             async geocodeAndMarkRoute(route, index) {
@@ -4788,47 +5038,159 @@ refreshDispatchTable() {
                 }
             }
 
-            // 獲取路線資料
-            async getRoutes() {
-                if (CONFIG.USE_MOCK_DATA || !this.isOnline) {
-                    return this.getMockData('getRoutes');
-                } else {
-                    return await this.apiCall('getRoutes');
-                }
+          // 修改 getRoutes 函數以連接到外部工作表
+async getRoutes() {
+    try {
+        if (CONFIG.USE_MOCK_DATA || !this.isOnline) {
+            return this.getMockData('getRoutes');
+        } else {
+            // 從外部 Google Sheet 獲取路線資料
+            return await this.apiCall('getRouteTableFromExternalSheet', {
+                targetSpreadsheetId: '109Qjbwi08bvficzUHx0hkON7UgL08i5zXQ6BPI4KwIE'
+            });
+        }
+    } catch (error) {
+        console.error('獲取路線資料失敗:', error);
+        throw new Error(`獲取路線資料失敗: ${error.message}`);
+    }
+}
+
+// 修正獲取外部路線資料的函數
+async getExternalRouteData() {
+    try {
+        console.log('開始獲取外部路線資料...');
+        
+        const routeData = await this.apiCall('getRouteTableFromExternalSheet', {
+            targetSpreadsheetId: '109Qjbwi08bvficzUHx0hkON7UgL08i5zXQ6BPI4KwIE'
+        });
+        
+        console.log('原始路線資料:', routeData);
+        
+        // 確保 routeData 是陣列
+        if (!Array.isArray(routeData)) {
+            console.error('路線資料不是陣列格式:', routeData);
+            throw new Error('路線資料格式錯誤');
+        }
+        
+        if (routeData.length === 0) {
+            console.warn('沒有找到路線資料');
+            return {
+                rawData: [],
+                processedRoutes: []
+            };
+        }
+        
+        // 處理地址資料 - 注意這裡的參數結構
+        const processedRoutes = await this.apiCall('processRouteAddresses', {
+            routeData: routeData  // 確保參數名稱正確
+        });
+        
+        console.log('處理後的路線資料:', processedRoutes);
+        
+        return {
+            rawData: routeData,
+            processedRoutes: processedRoutes || []
+        };
+        
+    } catch (error) {
+        console.error('獲取外部路線資料失敗:', error);
+        throw error;
+    }
+}
+
+
+            // 修改顯示路線表格函數以適應外部資料結構
+displayRoutesTable(routes) {
+    const tableBody = document.getElementById('routeTableBody');
+    if (!tableBody) return;
+
+    tableBody.innerHTML = '';
+
+    routes.forEach((route, index) => {
+        // 處理外部資料結構
+        const routeName = route['工作表名稱'] || route['路線名稱'] || `路線${index + 1}`;
+        const totalKm = route['總公里數'] || 0;
+        
+        // 計算地址數量
+        let addressCount = 0;
+        for (let i = 1; i <= 20; i++) {
+            if (route[`地址${i}`] && route[`地址${i}`].trim() !== '') {
+                addressCount++;
             }
+        }
+        
+        const startPoint = route['地址1'] || '未設定';
+        const endPoint = route[`地址${addressCount}`] || '未設定';
+        
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>R${String(index + 1).padStart(3, '0')}</td>
+            <td>${routeName}</td>
+            <td>${startPoint}</td>
+            <td>${endPoint}</td>
+            <td>${addressCount}個收送點</td>
+            <td>${Math.round(totalKm * 2.5)} 分鐘</td>
+            <td><span class="status-badge 啟用">啟用</span></td>
+            <td>
+                <button class="btn btn-sm btn-info" onclick="app.viewExternalRoute('${routeName}')">
+                    <i class="fas fa-eye"></i>
+                </button>
+                <button class="btn btn-sm btn-success" onclick="app.showExternalRouteOnMap('${routeName}')">
+                    <i class="fas fa-map"></i>
+                </button>
+                <button class="btn btn-sm btn-primary" onclick="app.showRouteAddresses('${routeName}')">
+                    <i class="fas fa-list"></i>
+                </button>
+            </td>
+        `;
+        tableBody.appendChild(row);
+    });
+}
 
-            // 顯示路線表格
-            displayRoutesTable(routes) {
-                const tableBody = document.getElementById('routeTableBody');
-                if (!tableBody) return;
-
-                tableBody.innerHTML = '';
-
-                routes.forEach(route => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${route.id}</td>
-                        <td>${route.name}</td>
-                        <td>${route.startPoint}</td>
-                        <td>${route.endPoint}</td>
-                        <td>${route.stopCount}</td>
-                        <td>${route.estimatedTime} 分鐘</td>
-                        <td><span class="status-badge ${route.status}">${route.status}</span></td>
-                        <td>
-                            <button class="btn btn-sm btn-info" onclick="app.viewRoute('${route.id}')">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="btn btn-sm btn-warning" onclick="app.editRoute('${route.id}')">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="btn btn-sm btn-danger" onclick="app.deleteRoute('${route.id}')">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </td>
-                    `;
-                    tableBody.appendChild(row);
-                });
+// 新增：檢視外部路線詳情
+async viewExternalRoute(routeName) {
+    try {
+        const externalData = await this.getExternalRouteData();
+        const route = externalData.rawData.find(r => 
+            (r['工作表名稱'] === routeName) || (r['路線名稱'] === routeName)
+        );
+        
+        if (!route) {
+            this.showNotification('找不到指定路線', 'error');
+            return;
+        }
+        
+        // 生成路線詳情HTML
+        let detailsHtml = `
+            <div class="route-details">
+                <h5>${routeName}</h5>
+                <p><strong>總公里數:</strong> ${route['總公里數'] || 0} km</p>
+                <hr>
+                <h6>地址清單:</h6>
+                <div style="max-height: 400px; overflow-y: auto;">
+        `;
+        
+        // 顯示所有地址
+        for (let i = 1; i <= 20; i++) {
+            const address = route[`地址${i}`];
+            if (address && address.trim() !== '') {
+                detailsHtml += `
+                    <div class="address-item" style="padding: 0.5rem; border-bottom: 1px solid #eee;">
+                        <strong>地址${i}:</strong> ${address}
+                    </div>
+                `;
             }
+        }
+        
+        detailsHtml += '</div></div>';
+        
+        this.showModal('路線詳情', detailsHtml);
+        
+    } catch (error) {
+        console.error('檢視路線詳情失敗:', error);
+        this.showNotification('檢視路線詳情失敗', 'error');
+    }
+}
 
             // 搜尋路線
             async searchRoutes() {
@@ -5963,9 +6325,9 @@ document.addEventListener('DOMContentLoaded', async function() {
         // 系統初始化完成標記
         window.dispatchGAISystemReady = true;
         
-        console.log('昶青物流派車GAI數據管理系統初始化完成');
+        console.log('昶青智慧冷鏈物流派車GAI數據管理系統初始化完成');
         console.log('版本: 1.0.0');
-        console.log('作者: 昶青物流技術團隊');
+        console.log('作者: 昶青智慧冷鏈物流技術團隊');
         console.log('最後更新: 2025-06-27');
 
         // 工具：將 yyyy-mm-dd 轉 yyyy/MM/dd
@@ -6069,7 +6431,7 @@ function renderDeliveryPointsTable(data) {
   }
 }
 
-// ===== GAI預排路線功能區塊 =====
+// ===== 【GAI智慧預排】當日路線功能區塊 =====
 
 // 1. 取得收送點清單資料（從表格抓取）
 function getDeliveryListFromTable() {
