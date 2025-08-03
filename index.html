@@ -8,6 +8,280 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
+/* 側邊選單 Logo 區域 - 細邊框震波版本 */
+.sidebar-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 0.6rem;
+    position: relative;
+    overflow: visible;
+}
+
+.sidebar-logo-image {
+    width: 110px;
+    height: auto;
+    max-width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    object-fit: contain;
+    position: relative;
+    z-index: 10;
+    animation: logo-breathing 4s ease-in-out infinite;
+}
+
+/* Logo 呼吸動畫 */
+@keyframes logo-breathing {
+    0%, 100% { 
+        transform: scale(1);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    50% { 
+        transform: scale(1);
+        box-shadow: 0 6px 18px rgba(14, 165, 233, 0.2);
+    }
+}
+
+/* 第一層細邊框震波 */
+.sidebar-logo-image::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border: 4px solid rgba(14, 165, 233, 0.9);
+    border-radius: 10px;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0;
+    animation: thin-ripple-1 2.5s infinite ease-out;
+}
+
+/* 第二層細邊框震波 */
+.sidebar-logo-image::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border: 3px solid rgba(20, 184, 166, 0.8);
+    border-radius: 10px;
+    z-index: -2;
+    pointer-events: none;
+    opacity: 0;
+    animation: thin-ripple-2 2.5s infinite ease-out 1.25s;
+}
+
+/* 第一層細震波動畫 */
+@keyframes thin-ripple-1 {
+    0% {
+        transform: scale(1);
+        opacity: 0;
+        border-width: 1px;
+    }
+    5% {
+        opacity: 0.8;
+    }
+    25% {
+        transform: scale(1.1);
+        opacity: 0.6;
+        border-width: 1px;
+    }
+    50% {
+        transform: scale(1.25);
+        opacity: 0.4;
+        border-width: 0.8px;
+    }
+    75% {
+        transform: scale(1.4);
+        opacity: 0.2;
+        border-width: 0.5px;
+    }
+    100% {
+        transform: scale(1.6);
+        opacity: 0;
+        border-width: 0px;
+    }
+}
+
+/* 第二層細震波動畫 */
+@keyframes thin-ripple-2 {
+    0% {
+        transform: scale(1);
+        opacity: 0;
+        border-width: 1px;
+    }
+    8% {
+        opacity: 0.6;
+    }
+    30% {
+        transform: scale(1.15);
+        opacity: 0.4;
+        border-width: 0.8px;
+    }
+    55% {
+        transform: scale(1.3);
+        opacity: 0.3;
+        border-width: 0.6px;
+    }
+    80% {
+        transform: scale(1.5);
+        opacity: 0.1;
+        border-width: 0.3px;
+    }
+    100% {
+        transform: scale(1.7);
+        opacity: 0;
+        border-width: 0px;
+    }
+}
+
+/* 滑鼠懸停效果 */
+.sidebar-logo-image:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(14, 165, 233, 0.3);
+    animation: logo-breathing 2s ease-in-out infinite;
+}
+
+/* 懸停時震波加速 */
+.sidebar-logo-image:hover::before {
+    animation: thin-ripple-1 1.8s infinite ease-out;
+}
+
+.sidebar-logo-image:hover::after {
+    animation: thin-ripple-2 1.8s infinite ease-out 0.9s;
+}
+
+/* 第三層震波（更細更遠）*/
+.sidebar-logo::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 120px;
+    height: 120px;
+    border: 1px solid rgba(6, 182, 212, 0.4);
+    border-radius: 8px;
+    transform: translate(-50%, -50%);
+    z-index: -3;
+    pointer-events: none;
+    opacity: 0;
+    animation: ultra-thin-ripple 3s infinite ease-out 2s;
+}
+
+/* 超細震波動畫 */
+@keyframes ultra-thin-ripple {
+    0% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0;
+        border-width: 0.5px;
+    }
+    10% {
+        opacity: 0.4;
+    }
+    40% {
+        transform: translate(-50%, -50%) scale(1.3);
+        opacity: 0.2;
+        border-width: 0.3px;
+    }
+    70% {
+        transform: translate(-50%, -50%) scale(1.6);
+        opacity: 0.1;
+        border-width: 0.2px;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(2);
+        opacity: 0;
+        border-width: 0px;
+    }
+}
+
+/* 背景光暈（更柔和）*/
+.sidebar-logo::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 160px;
+    height: 160px;
+    background: radial-gradient(circle, rgba(14, 165, 233, 0.05) 0%, transparent 70%);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+    animation: subtle-glow 4s ease-in-out infinite;
+}
+
+/* 柔和光暈動畫 */
+@keyframes subtle-glow {
+    0%, 100% {
+        opacity: 0.3;
+        transform: translate(-50%, -50%) scale(0.8);
+    }
+    50% {
+        opacity: 0.5;
+        transform: translate(-50%, -50%) scale(1.1);
+    }
+}
+
+/* 響應式調整 */
+@media (max-width: 768px) {
+    .sidebar-logo-image {
+        width: 100px;
+    }
+    
+    .sidebar-logo::before {
+        width: 140px;
+        height: 140px;
+    }
+    
+    .sidebar-logo::after {
+        width: 100px;
+        height: 100px;
+    }
+}
+
+@media (max-width: 480px) {
+    .sidebar-logo-image {
+        width: 90px;
+    }
+    
+    .sidebar-logo::before {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .sidebar-logo::after {
+        width: 90px;
+        height: 90px;
+    }
+}
+
+/* 硬體加速優化 */
+.sidebar-logo-image,
+.sidebar-logo-image::before,
+.sidebar-logo-image::after,
+.sidebar-logo::before,
+.sidebar-logo::after {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    will-change: transform, opacity, border-width;
+}
+
+/* 調整選單列表 */
+.menu-list {
+    list-style: none;
+    padding: 0 0.6rem;
+    margin-top: 0;
+}
+
+
         /* ===== 重新設計的 CSS 樣式 ===== */
         * {
             margin: 0;
@@ -1822,6 +2096,10 @@
 
         <!-- 側邊選單 -->
         <aside class="sidebar" id="sidebar">
+            <!-- 新增 R1.png 圖形區域 -->
+            <div class="sidebar-logo">
+                <img src="R1.png" alt="R1 Logo" class="sidebar-logo-image">
+            </div>
             <ul class="menu-list">
                 <li class="menu-item active" data-page="dashboard" data-permission="dashboard">
                     <i class="fas fa-tachometer-alt"></i>
@@ -1879,7 +2157,7 @@
                     <div class="weather-header">
                         <div>
                             <div class="weather-temp" id="weatherTemp">--°C</div>
-                            <div id="weatherDescription">載入中...</div>
+                            <div id="weatherDescription">資料同步中...</div>
                         </div>
                         <div class="weather-icon" id="weatherIcon">
                             <i class="fas fa-cloud"></i>
@@ -2374,11 +2652,11 @@
         </main>
     </div>
 
-    <!-- 載入中遮罩 -->
+    <!-- 資料同步中遮罩 -->
     <div id="loadingOverlay" class="loading-overlay">
         <div class="loading-spinner">
             <i class="fas fa-spinner fa-spin"></i>
-            <p>載入中...</p>
+            <p>資料同步中...</p>
         </div>
     </div>
 
@@ -4122,7 +4400,7 @@ async loadRoutesOnMap() {
         console.log('開始載入路線到地圖...');
         
         const routeMapList = document.getElementById('routeMapList');
-        routeMapList.innerHTML = '<div style="padding: 1rem; text-align: center;">載入中...</div>';
+        routeMapList.innerHTML = '<div style="padding: 1rem; text-align: center;">資料同步中...</div>';
         
         this.mapsIntegration.clearMarkers();
         
@@ -5227,7 +5505,7 @@ async viewExternalRoute(routeName) {
                         <p>${routeId}</p>
                     </div>
                     <div class="form-group">
-                        <label>路線資訊載入中...</label>
+                        <label>路線資訊資料同步中...</label>
                     </div>
                 `);
             }
@@ -5771,12 +6049,12 @@ async viewExternalRoute(routeName) {
                 }
             }
 
-            // 顯示載入中
+            // 顯示資料同步中
             showLoading() {
                 elements.loadingOverlay.classList.add('show');
             }
 
-            // 隱藏載入中
+            // 隱藏資料同步中
             hideLoading() {
                 elements.loadingOverlay.classList.remove('show');
             }
