@@ -21,10 +21,10 @@
 }
 
 .sidebar-logo-image {
-    width: 110px;
+    width: 100px;
     height: auto;
     max-width: 100%;
-    border-radius: 8px;
+    border-radius: 20px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     object-fit: contain;
@@ -53,7 +53,7 @@
     left: -2px;
     right: -2px;
     bottom: -2px;
-    border: 4px solid rgba(14, 165, 233, 0.9);
+    border: 5px solid #f07400;
     border-radius: 10px;
     z-index: -1;
     pointer-events: none;
@@ -69,7 +69,7 @@
     left: -2px;
     right: -2px;
     bottom: -2px;
-    border: 3px solid rgba(20, 184, 166, 0.8);
+    border:4px solid #f07400;
     border-radius: 10px;
     z-index: -2;
     pointer-events: none;
@@ -165,7 +165,7 @@
     left: 50%;
     width: 120px;
     height: 120px;
-    border: 1px solid rgba(6, 182, 212, 0.4);
+    border: 2px solid #f07400;
     border-radius: 8px;
     transform: translate(-50%, -50%);
     z-index: -3;
@@ -2157,7 +2157,7 @@
                     <div class="weather-header">
                         <div>
                             <div class="weather-temp" id="weatherTemp">--°C</div>
-                            <div id="weatherDescription">資料同步中...</div>
+                            <div id="weatherDescription">資料同步化...</div>
                         </div>
                         <div class="weather-icon" id="weatherIcon">
                             <i class="fas fa-cloud"></i>
@@ -2316,18 +2316,18 @@
                 <div class="dashboard-grid" id="dashboardStats">
                     <div class="card">
                         <div class="card-header">
-                            <h3>今日配送狀況</h3>
+                            <h3>當日收送總板數</h3>
                             <i class="fas fa-shipping-fast"></i>
                         </div>
                         <div class="card-body">
                             <div class="stat-number" id="todayDeliveries">0</div>
-                            <div class="stat-label">已完成配送</div>
+                            <div class="stat-label">北倉另計</div>
                         </div>
                     </div>
                     
                     <div class="card">
                         <div class="card-header">
-                            <h3>車輛使用率</h3>
+                            <h3>26噸冷鏈車輛使用率</h3>
                             <i class="fas fa-truck"></i>
                         </div>
                         <div class="card-body">
@@ -2338,23 +2338,23 @@
                     
                     <div class="card">
                         <div class="card-header">
-                            <h3>準時率</h3>
+                            <h3>當日總里程數(km)</h3>
                             <i class="fas fa-clock"></i>
                         </div>
                         <div class="card-body">
                             <div class="stat-number" id="onTimeRate">0%</div>
-                            <div class="stat-label">準時配送率</div>
+                            <div class="stat-label">公里</div>
                         </div>
                     </div>
                     
                     <div class="card">
                         <div class="card-header">
-                            <h3>異常警示</h3>
+                            <h3>溫室氣體排放量（CO₂e）</h3>
                             <i class="fas fa-exclamation-triangle"></i>
                         </div>
                         <div class="card-body">
                             <div class="stat-number alert" id="alertCount">0</div>
-                            <div class="stat-label">待處理異常</div>
+                            <div class="stat-label">噸 CO₂</div>
                         </div>
                     </div>
                 </div>
@@ -2448,13 +2448,13 @@
             <!-- GAI-<br>精準智慧物流路徑規劃頁面 -->
             <div id="route-optimization" class="page">
                 <div class="page-header">
-                    <h1><i class="fas fa-brain"></i> GAI-<br>精準智慧物流路徑規劃</h1>
+                    <h1 style="color: #e3299f;"><i class="fas fa-brain"></i> GAI-精準智慧物流路徑規劃</h1>
                 </div>
                                 <!-- 派車收送點清單區塊 -->
                 <div id="deliveryPointsPanel" class="card" style="margin-bottom: 1.5rem;">
                   <div class="card-header" style="display: flex; align-items: center; justify-content: space-between;">
                     <div>
-                      <h2 style="margin: 0;">1.【客戶下單】收送點資料</h2>
+                      <h2 style="margin: 0; color: #02adeb;">1.【客戶下單】收送點資料</h2>
                     </div>
                     <div>
                       <input type="date" id="deliveryDatePicker" class="form-input" style="width: auto;">
@@ -2476,7 +2476,7 @@
                 <div id="gai-route-section" style="margin-top:2em; border:1px solid #e2e8f0; border-radius:8px; padding:1em; background:#fff;">
                   <h3 style="margin-bottom:1em;">2.【GAI智慧預排】當日路線</h3>
                   <button id="ai-preplan-btn" style="background:#2563eb; color:#fff; border:none; padding:0.5em 1.5em; border-radius:4px; cursor:pointer;">
-                    <i class="fa-solid fa-robot"></i> AI預排
+                    <i class="fa-solid fa-robot"></i> GAI預排
                   </button>
                              <!-- 路線卡片容器 -->
               <div id="gai-route-result" style="margin-top:1.5em;">
@@ -2652,11 +2652,11 @@
         </main>
     </div>
 
-    <!-- 資料同步中遮罩 -->
+    <!-- 資料同步化遮罩 -->
     <div id="loadingOverlay" class="loading-overlay">
         <div class="loading-spinner">
             <i class="fas fa-spinner fa-spin"></i>
-            <p>資料同步中...</p>
+            <p>資料同步化...</p>
         </div>
     </div>
 
@@ -2743,7 +2743,7 @@
         // 全域變數
         const CONFIG = {
             SPREADSHEET_ID: '1miCf_ZTVyzmA1MNbbZM3uUdZjluk99gZUH5w2q_XWs8',
-            GAS_URL: 'https://script.google.com/macros/s/AKfycbxiCbvs-KlugO4qiqYiK9JJ_5AoGwG_xlYXWo6t0e2q0rirgshVJ2MfgwCf5kzm1T4/exec',
+            GAS_URL: 'https://script.google.com/macros/s/AKfycbzUgb_ZAkwSWtTzMZsbO1oHlU_oeLCydGNTqTvfk4zIn-EVSk-rDUnL0ATFziNkAesn/exec',
             USE_MOCK_DATA: false,
             MAPS_API_KEY: 'AIzaSyDtP8oDCXfr0CPLyVv_WrAqmk2V9QgteLI',
             WEATHER_API_KEY: 'a4806bc2577c0c227f9acd8bccb566a5',
@@ -3277,13 +3277,52 @@
                 this.weatherService = new WeatherService();
                 this.isMapViewActive = false;
                 this.currentWaypoints = [];
-            }
+                 this.routePalletSumCache = {
+                    value: 0,
+                    timestamp: 0,
+                    ttl: 300000 // 5分鐘快取
+                };
+                this.routePalletNonZeroCountCache = {
+                    value: 0,
+                    timestamp: 0,
+                    ttl: 300000 // 5分鐘快取
+                };
+                        }
 
             // 初始化系統
             init() {
                 this.bindEvents();
                 this.checkLoginStatus();
             }
+            // 獲取非零次數的快取方法
+async getRoutePalletNonZeroCountWithCache() {
+    const now = Date.now();
+    
+    // 檢查快取是否有效
+    if (this.routePalletNonZeroCountCache.timestamp + this.routePalletNonZeroCountCache.ttl > now) {
+        console.log('使用快取的非零次數:', this.routePalletNonZeroCountCache.value);
+        return this.routePalletNonZeroCountCache.value;
+    }
+    
+    try {
+        const count = await this.apiCall('getRoutePalletNonZeroCount', {
+            targetSpreadsheetId: '109Qjbwi08bvficzUHx0hkON7UgL08i5zXQ6BPI4KwIE'
+        });
+        
+        // 更新快取
+        this.routePalletNonZeroCountCache = {
+            value: count,
+            timestamp: now,
+            ttl: 300000
+        };
+        
+        return count;
+    } catch (error) {
+        console.error('獲取路線板數非零次數失敗:', error);
+        // 如果有快取資料，即使過期也使用
+        return this.routePalletNonZeroCountCache.value || 0;
+    }
+}
 
             // 綁定事件
             bindEvents() {
@@ -3637,7 +3676,7 @@ async fetchDeliveryPoints() {
         });
         
         if (loadingSpinner) {
-            loadingSpinner.textContent = '正在執行【路徑導航設計程序】...';
+            loadingSpinner.textContent = '正在執行【路徑導航設計】程序...';
         }
         
         // 2. 自動執行外部 GAS 的 autoCompleteProcess 程序
@@ -3651,7 +3690,7 @@ async fetchDeliveryPoints() {
         await this.waitForSheetGeneration(20000); // 等待20秒
         
         if (loadingSpinner) {
-            loadingSpinner.textContent = '正在載入託收託運回報資料...';
+            loadingSpinner.textContent = '正在同步託收託運回報資料...';
         }
         
         // 4. 使用重試機制獲取託收託運回報工作表資料
@@ -4400,7 +4439,7 @@ async loadRoutesOnMap() {
         console.log('開始載入路線到地圖...');
         
         const routeMapList = document.getElementById('routeMapList');
-        routeMapList.innerHTML = '<div style="padding: 1rem; text-align: center;">資料同步中...</div>';
+        routeMapList.innerHTML = '<div style="padding: 1rem; text-align: center;">資料同步化...</div>';
         
         this.mapsIntegration.clearMarkers();
         
@@ -5265,42 +5304,85 @@ async showRouteAddresses(routeName) {
                 return mockData[action] || {};
             }
 
-            // 載入主控台資料
-            async loadDashboard() {
-                this.showLoading();
-                try {
-                    let dashboardData;
-                    
-                    if (CONFIG.USE_MOCK_DATA || !this.isOnline) {
-                        dashboardData = this.getMockData('getDashboardData');
-                        if (!this.isOnline) {
-                            this.showNotification('目前使用離線模式', 'warning');
-                        }
-                    } else {
-                        dashboardData = await this.apiCall('getDashboardData');
-                    }
-                    
-                    // 更新統計數據
-                    document.getElementById('todayDeliveries').textContent = dashboardData.todayDeliveries || 0;
-                    document.getElementById('vehicleUsage').textContent = `${dashboardData.vehicleUsage || 0}%`;
-                    document.getElementById('onTimeRate').textContent = `${dashboardData.onTimeRate || 0}%`;
-                    document.getElementById('alertCount').textContent = dashboardData.alertCount || 0;
-
-                                        // 如果有異常，更新警示樣式
-                    const alertElement = document.getElementById('alertCount');
-                    if (dashboardData.alertCount > 0) {
-                        alertElement.classList.add('alert');
-                    } else {
-                        alertElement.classList.remove('alert');
-                    }
-
-                } catch (error) {
-                    console.error('載入主控台資料失敗:', error);
-                    this.showNotification('載入主控台資料失敗', 'error');
-                } finally {
-                    this.hideLoading();
-                }
+// 載入主控台資料 (修改版)
+async loadDashboard() {
+    this.showLoading();
+    try {
+        let dashboardData;
+        let routePalletSum = 0;
+        let routePalletNonZeroPercentage = 0;
+        let routeTableLastBValue = 0;
+        let routeTableAlertValue = 0;
+        
+        if (CONFIG.USE_MOCK_DATA || !this.isOnline) {
+            dashboardData = this.getMockData('getDashboardData');
+            routePalletSum = 163; // 模擬資料
+            routePalletNonZeroPercentage = 10; // 模擬百分比
+            routeTableLastBValue = 7436.04; // 模擬路線表B欄位最後值
+            routeTableAlertValue = 2.01; // 模擬異常警示值 (7436.04 × 0.27 ÷ 1000)
+            if (!this.isOnline) {
+                this.showNotification('目前使用離線模式', 'warning');
             }
+        } else {
+            // 獲取基本儀表板資料
+            dashboardData = await this.apiCall('getDashboardData');
+            
+            // 同時獲取各項數據
+            try {
+                const [palletSum, nonZeroPercentage, lastBValue, alertValue] = await Promise.all([
+                    this.apiCall('getRoutePalletSum', {
+                        targetSpreadsheetId: '109Qjbwi08bvficzUHx0hkON7UgL08i5zXQ6BPI4KwIE'
+                    }),
+                    this.apiCall('getRoutePalletNonZeroPercentage', {
+                        targetSpreadsheetId: '109Qjbwi08bvficzUHx0hkON7UgL08i5zXQ6BPI4KwIE'
+                    }),
+                    this.apiCall('getRouteTableLastBValue', {
+                        targetSpreadsheetId: '109Qjbwi08bvficzUHx0hkON7UgL08i5zXQ6BPI4KwIE'
+                    }),
+                    this.apiCall('getRouteTableAlertValue', {
+                        targetSpreadsheetId: '109Qjbwi08bvficzUHx0hkON7UgL08i5zXQ6BPI4KwIE'
+                    })
+                ]);
+                
+                routePalletSum = palletSum;
+                routePalletNonZeroPercentage = nonZeroPercentage;
+                routeTableLastBValue = lastBValue;
+                routeTableAlertValue = alertValue;
+                
+            } catch (error) {
+                console.error('獲取外部資料失敗:', error);
+                routePalletSum = 0;
+                routePalletNonZeroPercentage = 0;
+                routeTableLastBValue = 0;
+                routeTableAlertValue = 0;
+            }
+        }
+        
+        // 更新統計數據
+        document.getElementById('todayDeliveries').textContent = routePalletSum;
+        document.getElementById('vehicleUsage').textContent = `${routePalletNonZeroPercentage}%`;
+        document.getElementById('onTimeRate').textContent = routeTableLastBValue;
+        document.getElementById('alertCount').textContent = routeTableAlertValue; // 顯示計算後的異常警示值
+
+        // 根據異常警示值更新樣式
+        const alertElement = document.getElementById('alertCount');
+        if (routeTableAlertValue > 2) { // 可以根據需要調整閾值
+            alertElement.classList.add('alert');
+        } else {
+            alertElement.classList.remove('alert');
+        }
+
+    } catch (error) {
+        console.error('載入主控台資料失敗:', error);
+        this.showNotification('載入主控台資料失敗', 'error');
+    } finally {
+        this.hideLoading();
+    }
+}
+
+
+
+
 
             // 載入路線管理資料
             async loadRouteManagement() {
@@ -5505,7 +5587,7 @@ async viewExternalRoute(routeName) {
                         <p>${routeId}</p>
                     </div>
                     <div class="form-group">
-                        <label>路線資訊資料同步中...</label>
+                        <label>路線資訊資料同步化...</label>
                     </div>
                 `);
             }
@@ -6049,12 +6131,12 @@ async viewExternalRoute(routeName) {
                 }
             }
 
-            // 顯示資料同步中
+            // 顯示資料同步化
             showLoading() {
                 elements.loadingOverlay.classList.add('show');
             }
 
-            // 隱藏資料同步中
+            // 隱藏資料同步化
             hideLoading() {
                 elements.loadingOverlay.classList.remove('show');
             }
@@ -6772,7 +6854,7 @@ document.getElementById('ai-preplan-btn').addEventListener('click', async functi
 
   try {
     // 呼叫後端API獲取明日建議派車表
-    const response = await fetch('hhttps://script.google.com/macros/s/AKfycbxH0p4bVcrm89-uXGQVYTNcOznt3xpnicDovrCwbOi89pZan54iCqUPU064iJIEee0Q/exec', {
+    const response = await fetch('https://script.google.com/macros/s/AKfycbxH0p4bVcrm89-uXGQVYTNcOznt3xpnicDovrCwbOi89pZan54iCqUPU064iJIEee0Q/exec', {
       method: "POST",
       headers: { "Content-Type": "text/plain" },
       body: JSON.stringify({
