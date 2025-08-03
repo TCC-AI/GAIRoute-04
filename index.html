@@ -325,7 +325,7 @@
         .sidebar {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(20px);
-            width: 280px;
+            width: 260px;
             height: calc(100vh - 80px);
             position: fixed;
             top: 80px;
@@ -339,7 +339,7 @@
 
         .menu-list {
             list-style: none;
-            padding: 0 1rem;
+            padding: 0 0.6rem;
         }
 
         .menu-item {
@@ -1829,7 +1829,7 @@
                 </li>
                 <li class="menu-item" data-page="route-optimization" data-permission="route-optimization">
                     <i class="fas fa-brain"></i>
-                    <span>GAI-精準智慧物流路徑規劃</span>
+                    <span>GAI-<br>精準智慧物流路徑規劃</span>
                 </li>
                 <li class="menu-item" data-page="route-management" data-permission="route-management">
                     <i class="fas fa-route"></i>
@@ -2167,10 +2167,10 @@
                 </div>
             </div>
 
-            <!-- GAI-精準智慧物流路徑規劃頁面 -->
+            <!-- GAI-<br>精準智慧物流路徑規劃頁面 -->
             <div id="route-optimization" class="page">
                 <div class="page-header">
-                    <h2><i class="fas fa-brain"></i> GAI-精準智慧物流路徑規劃</h2>
+                    <h1><i class="fas fa-brain"></i> GAI-<br>精準智慧物流路徑規劃</h1>
                 </div>
                                 <!-- 派車收送點清單區塊 -->
                 <div id="deliveryPointsPanel" class="card" style="margin-bottom: 1.5rem;">
@@ -2465,14 +2465,14 @@
         // 全域變數
         const CONFIG = {
             SPREADSHEET_ID: '1miCf_ZTVyzmA1MNbbZM3uUdZjluk99gZUH5w2q_XWs8',
-            GAS_URL: 'https://script.google.com/macros/s/AKfycbxssGrJkD392C-OEjKYQTJLctDKCNG40bdK9gjJjkoiD7sgbC0D_t7eFBwylgaC75ujpA/exec',
+            GAS_URL: 'https://script.google.com/macros/s/AKfycbxiCbvs-KlugO4qiqYiK9JJ_5AoGwG_xlYXWo6t0e2q0rirgshVJ2MfgwCf5kzm1T4/exec',
             USE_MOCK_DATA: false,
             MAPS_API_KEY: 'AIzaSyDtP8oDCXfr0CPLyVv_WrAqmk2V9QgteLI',
             WEATHER_API_KEY: 'a4806bc2577c0c227f9acd8bccb566a5',
             SHEETS: {
                 DASHBOARD: '主控台',
                 ROUTES: '路線管理',
-                OPTIMIZATION: 'GAI-精準智慧物流路徑規劃', 
+                OPTIMIZATION: 'GAI-<br>精準智慧物流路徑規劃', 
                 SEASONAL: '季節性路線',
                 CARGO_VEHICLE: '載運管理',
                 REALTIME: '即時監控',
@@ -3652,7 +3652,7 @@ async handleAIPreplan() {
                 </div>
             `;
             
-            this.showNotification('當日各路線表載入完成', 'success');
+            this.showNotification('當日各路線表計算完成', 'success');
         } else {
             throw new Error('無法取得路線表資料或資料為空');
         }
