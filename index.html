@@ -397,7 +397,7 @@
             box-shadow: var(--shadow-2xl);
             padding: 3rem;
             width: 100%;
-            max-width: 420px;
+            max-width: 560px;
             text-align: center;
             position: relative;
             overflow: hidden;
@@ -2817,7 +2817,7 @@
         // 全域變數
         const CONFIG = {
             SPREADSHEET_ID: '1miCf_ZTVyzmA1MNbbZM3uUdZjluk99gZUH5w2q_XWs8',
-            GAS_URL: 'https://script.google.com/macros/s/AKfycbwq7GyZbiK4RJtDGVriA6HWsEZqMk8oIpjZnDn5g_338IJsOp8GBtH5grLTSx52dfg_wQ/exec',
+            GAS_URL: 'https://script.google.com/macros/s/AKfycbzYzjn3TTpKXjeWWRv9O9WfamXmr6twRVsH7ZN1ja78dwYM-UYUws2v1gGZrslcYjI8jQ/exec',
             USE_MOCK_DATA: false,
             MAPS_API_KEY: 'AIzaSyDtP8oDCXfr0CPLyVv_WrAqmk2V9QgteLI',
             WEATHER_API_KEY: 'a4806bc2577c0c227f9acd8bccb566a5',
@@ -3380,7 +3380,7 @@ async getRoutePalletNonZeroCountWithCache() {
     
     try {
         const count = await this.apiCall('getRoutePalletNonZeroCount', {
-            targetSpreadsheetId: '109Qjbwi08bvficzUHx0hkON7UgL08i5zXQ6BPI4KwIE'
+            targetSpreadsheetId: '1YMYLTvbAZjUxtOrtavzOCSTt0U5NfZN7S825TQmflbc'
         });
         
         // 更新快取
@@ -3539,7 +3539,7 @@ document.getElementById('debugRouteData')?.addEventListener('click', async () =>
         
         // 第一步：測試獲取原始資料
         const rawData = await this.apiCall('getRouteTableFromExternalSheet', {
-            targetSpreadsheetId: '109Qjbwi08bvficzUHx0hkON7UgL08i5zXQ6BPI4KwIE'
+            targetSpreadsheetId: '1YMYLTvbAZjUxtOrtavzOCSTt0U5NfZN7S825TQmflbc'
         });
         
         console.log('原始資料:', rawData);
@@ -3746,7 +3746,7 @@ async fetchDeliveryPoints() {
         // 1. 寫入指定日期到外部 Google Sheet
         await this.apiCall('setSpecifiedDateToExternalSheet', { 
             date: date,
-            targetSpreadsheetId: '109Qjbwi08bvficzUHx0hkON7UgL08i5zXQ6BPI4KwIE'
+            targetSpreadsheetId: '1YMYLTvbAZjUxtOrtavzOCSTt0U5NfZN7S825TQmflbc'
         });
         
         if (loadingSpinner) {
@@ -3798,7 +3798,7 @@ async getFilteredDeliveryReportWithRetry(maxRetries = 3, retryDelay = 5000) {
             console.log(`嘗試獲取託收託運回報資料 (第 ${attempt} 次)`);
             
             const result = await this.apiCall('getFilteredDeliveryReport', {
-                targetSpreadsheetId: '109Qjbwi08bvficzUHx0hkON7UgL08i5zXQ6BPI4KwIE'
+                targetSpreadsheetId: '1YMYLTvbAZjUxtOrtavzOCSTt0U5NfZN7S825TQmflbc'
             });
             
             if (result && result.length > 0) {
@@ -3834,7 +3834,7 @@ delay(ms) {
 async getFilteredDeliveryReport() {
     try {
         const result = await this.apiCall('getFilteredDeliveryReport', {
-            targetSpreadsheetId: '109Qjbwi08bvficzUHx0hkON7UgL08i5zXQ6BPI4KwIE'
+            targetSpreadsheetId: '1YMYLTvbAZjUxtOrtavzOCSTt0U5NfZN7S825TQmflbc'
         });
         return result;
     } catch (error) {
@@ -3942,7 +3942,7 @@ refreshDeliveryReport() {
 
 // 執行外部 GAS 的 autoCompleteProcess 程序（修正 CORS 版本）
 async executeExternalAutoCompleteProcess() {
-    const externalGasUrl = 'https://script.google.com/macros/s/AKfycbwOEIW9NAw-JIwRcPNggLMuytNCruwpQxZL7EeFSzW1Fj5AtOXKzXAVVgbsbhdJaqx1lQ/exec';
+    const externalGasUrl = 'https://script.google.com/macros/s/AKfycbzwoFym1PhjntX39HnZwq1KPEuI49zu2yOCGbxUap4RJtqH-wnG9n-dbnVwtpVzK3sbuw/exec';
     
     try {
         // 先測試 GET 請求確認服務可用
@@ -4002,7 +4002,7 @@ async handleAIPreplan() {
         console.log('開始獲取當日各路線表...');
         
         const result = await this.apiCall('getCurrentDayRouteTable', {
-            targetSpreadsheetId: '109Qjbwi08bvficzUHx0hkON7UgL08i5zXQ6BPI4KwIE'
+            targetSpreadsheetId: '1YMYLTvbAZjUxtOrtavzOCSTt0U5NfZN7S825TQmflbc'
         });
         
         console.log('API 返回結果:', result);
@@ -5405,16 +5405,16 @@ async loadDashboard() {
             try {
                 const [palletSum, nonZeroPercentage, lastBValue, alertValue] = await Promise.all([
                     this.apiCall('getRoutePalletSum', {
-                        targetSpreadsheetId: '109Qjbwi08bvficzUHx0hkON7UgL08i5zXQ6BPI4KwIE'
+                        targetSpreadsheetId: '1YMYLTvbAZjUxtOrtavzOCSTt0U5NfZN7S825TQmflbc'
                     }),
                     this.apiCall('getRoutePalletNonZeroPercentage', {
-                        targetSpreadsheetId: '109Qjbwi08bvficzUHx0hkON7UgL08i5zXQ6BPI4KwIE'
+                        targetSpreadsheetId: '1YMYLTvbAZjUxtOrtavzOCSTt0U5NfZN7S825TQmflbc'
                     }),
                     this.apiCall('getRouteTableLastBValue', {
-                        targetSpreadsheetId: '109Qjbwi08bvficzUHx0hkON7UgL08i5zXQ6BPI4KwIE'
+                        targetSpreadsheetId: '1YMYLTvbAZjUxtOrtavzOCSTt0U5NfZN7S825TQmflbc'
                     }),
                     this.apiCall('getRouteTableAlertValue', {
-                        targetSpreadsheetId: '109Qjbwi08bvficzUHx0hkON7UgL08i5zXQ6BPI4KwIE'
+                        targetSpreadsheetId: '1YMYLTvbAZjUxtOrtavzOCSTt0U5NfZN7S825TQmflbc'
                     })
                 ]);
                 
@@ -5480,7 +5480,7 @@ async getRoutes() {
         } else {
             // 從外部 Google Sheet 獲取路線資料
             return await this.apiCall('getRouteTableFromExternalSheet', {
-                targetSpreadsheetId: '109Qjbwi08bvficzUHx0hkON7UgL08i5zXQ6BPI4KwIE'
+                targetSpreadsheetId: '1YMYLTvbAZjUxtOrtavzOCSTt0U5NfZN7S825TQmflbc'
             });
         }
     } catch (error) {
@@ -5495,7 +5495,7 @@ async getExternalRouteData() {
         console.log('開始獲取外部路線資料...');
         
         const routeData = await this.apiCall('getRouteTableFromExternalSheet', {
-            targetSpreadsheetId: '109Qjbwi08bvficzUHx0hkON7UgL08i5zXQ6BPI4KwIE'
+            targetSpreadsheetId: '1YMYLTvbAZjUxtOrtavzOCSTt0U5NfZN7S825TQmflbc'
         });
         
         console.log('原始路線資料:', routeData);
